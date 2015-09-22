@@ -59,20 +59,21 @@
           </ul>
 
           <h4><a>Add Gear</a></h4>
-          <form>
-            <input type="text" name="manufacturer" placeholder="manufacturer">
+          <form ng-submit="addProduct()">
+            <input type="text" ng-model="products.manufacturer" placeholder="manufacturer">
             <br />
-            <input type="text" name="productName" placeholder="product name">
+            <input type="text" ng-model="products.name" placeholder="product name">
             <br />
-            <input type="text" name="weight" placeholder="weight">
+            <input type="text" ng-model="products.weight" placeholder="weight">
             <br />
-            <select name="units">
+            <select ng-model="products.units">
               <option value="grams">Grams</option>
               <option value="oz">Oz.</option>
               <option value="lbs">Lbs.</option>
             </select>
             <br />
-            <input type="text" name="nickname" placeholder="product nickname">
+            <input type="text" ng-model="products.nickname" placeholder="product nickname">
+            <button type="submit">Add Gear</button>
           </form>
 
           <h4><a>Gear List</a></h4>
@@ -92,7 +93,7 @@
       </div>
 
       <div class="footer">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+        <p><span class="glyphicon glyphicon-heart"></span> Love the outdoors.  Do it a little lighter.</p>
       </div>
     </div>
     
