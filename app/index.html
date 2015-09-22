@@ -80,20 +80,28 @@
                 <th width="20%">Price</th>
               </tr>
             </table>
-              <div ng-repeat="products in products">
-                <span ng-class-odd="'odd'" ng-class-even="'even'">
-                  <table style="width:100%" ng-class-odd="'odd'" ng-class-even="'even'">
-                    <tr>
-                      <td width="20%">{{ products.nickname }}</td>
-                      <td width="20%">{{ products.manufacturer }}</td> 
-                      <td width="20%">{{ products.name }}</td>
-                      <td width="20%">{{ products.weight }} - {{ products.units }}</td> 
-                      <td width="20%">{{ products.price | currency }}</td>
-                    </tr>
-                  </table>
-                </span>
-              </div>
-            </table>
+            <div ng-repeat="products in products">
+              <span ng-class-odd="'odd'" ng-class-even="'even'">
+                <table style="width:100%" ng-class-odd="'odd'" ng-class-even="'even'">
+                  <tr>
+                    <td width="20%">{{ products.nickname }}</td>
+                    <td width="20%">{{ products.manufacturer }}</td> 
+                    <td width="20%">{{ products.name }}</td>
+                    <td width="20%">{{ products.weight }} - {{ products.units }}</td> 
+                    <td width="20%">{{ products.price | currency }}</td>
+                  </tr>
+                </table>
+              </span>
+            </div>
+            <!-- <table style="width:100%">
+              <tr>
+                <td width="20%"></td>
+                <td width="20%"></td> 
+                <td width="20%"></td>
+                <td width="20%">{{ totalWeight }}</td> 
+                <td width="20%">{{ totalPrice | currency }}</td>
+              </tr>
+            </table> -->
           </div>
 
           <h4></h4>
