@@ -16,6 +16,7 @@
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/style.css">
     <!-- endbuild -->
     <!-- build:js scripts/vendor/modernizr.js -->
     <script src="/bower_components/modernizr/modernizr.js"></script>
@@ -48,43 +49,51 @@
       </div>
 
       <div class="row marketing">
-        <div class="col-lg-6">
-          <h4><a href="https://html5boilerplate.com/">Pack a new piece of gear:</a></h4>
-          <p></p>
-          <ul>
-            <li>Add gear name</li>
-            <li>include weight and units</li>
-            <li>include link to manufacturer</li>
-            <li>include retail price and your price(if applicable)</li>
-          </ul>
+        <div class="col-lg-12">
 
           <h4><a>Add Gear</a></h4>
-          <form ng-submit="addProduct()">
+          <form id="addGearForm" ng-submit="addProduct()">
+            <input type="text" ng-model="products.nickname" placeholder="product nickname">
+            <br />
             <input type="text" ng-model="products.manufacturer" placeholder="manufacturer">
-            <br />
             <input type="text" ng-model="products.name" placeholder="product name">
-            <br />
             <input type="text" ng-model="products.weight" placeholder="weight">
-            <br />
             <select ng-model="products.units">
               <option value="grams">Grams</option>
               <option value="oz">Oz.</option>
               <option value="lbs">Lbs.</option>
             </select>
+            <input type="text" ng-model="products.price" placeholder="price">
             <br />
-            <input type="text" ng-model="products.nickname" placeholder="product nickname">
             <button type="submit">Add Gear</button>
           </form>
 
           <h4><a>Gear List</a></h4>
 
-          <div ng-repeat="products in products">
-            <p>Product: {{ products.nickname }}</p>
-            <ul>
-              <li>Manufacturer: {{ products.manufacturer }}</li>
-              <li>Model: {{ products.name }}</li>
-              <li>Weight: {{ products.weight }} - {{ products.units }}</li>
-            </ul>
+          <div>
+            <table style="width:100%">
+              <tr>
+                <th width="20%">Product</th>
+                <th width="20%">Manufacturer</th> 
+                <th width="20%">Model</th>
+                <th width="20%">Weight</th>
+                <th width="20%">Price</th>
+              </tr>
+            </table>
+              <div ng-repeat="products in products">
+                <span ng-class-odd="'odd'" ng-class-even="'even'">
+                  <table style="width:100%" ng-class-odd="'odd'" ng-class-even="'even'">
+                    <tr>
+                      <td width="20%">{{ products.nickname }}</td>
+                      <td width="20%">{{ products.manufacturer }}</td> 
+                      <td width="20%">{{ products.name }}</td>
+                      <td width="20%">{{ products.weight }} - {{ products.units }}</td> 
+                      <td width="20%">{{ products.price | currency }}</td>
+                    </tr>
+                  </table>
+                </span>
+              </div>
+            </table>
           </div>
 
           <h4></h4>
