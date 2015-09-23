@@ -9,6 +9,7 @@ table, th, td {
 
 th, td {
     padding: 15px;
+    width: 20%;
 }
 
 .odd {

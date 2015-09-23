@@ -20,9 +20,14 @@ app.config([
 
 	  $stateProvider
 	    .state('home', {
-	      url: '/home',
-	      templateUrl: '/home.html',
-	      controller: 'MainCtrl'
+	    	url: '/home',
+	    	templateUrl: '/home.html',
+	    	controller: 'MainCtrl'
+	    })
+	    .state('login', {
+	    	url: '/login',
+	    	templateUrl: '/login.html',
+	    	controller: 'LoginCtrl'
 	    });
 
 	  $urlRouterProvider.otherwise('home');
@@ -49,6 +54,13 @@ app.controller('MainCtrl', ['$scope', 'products', function($scope, products) {
 		p.nickname = '';
 		p.price = '';
 	};
+}]);
+
+app.controller('LoginCtrl', [
+'$scope',
+'posts',
+function($scope, posts){
+
 }]);
 
 })();

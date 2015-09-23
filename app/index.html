@@ -34,20 +34,28 @@
     <div class="container">
       <div class="header">
         <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="#">Home</a></li>
+          <li class="active"><a href="#/home">Home</a></li>
           <li><a href="#">Gear</a></li>
           <li><a href="#">Account</a></li>
         </ul>
-        <h3 class="text-muted">VirtualPack</h3>
+        <h3 class="text-muted">MyVirtualPack</h3>
       </div>
     
-    <ui-view></ui-view>
+      <ui-view></ui-view>
+      <div class="footer">
+        <p><span class="glyphicon glyphicon-heart"></span> Love the outdoors.  Do it a little lighter.</p>
+      </div>
+
+    </div>
+
+<!-- *** Homepage Template *** -->
+
     <script type="text/ng-template" id="/home.html">  
       <div class="jumbotron">
         <h1>Get Your Own Virtual Pack!</h1>
-        <p class="lead">Always a pleasure scaffolding your apps.</p>
-        <p><a class="btn btn-lg btn-success" href="#">SignUp! <span class="glyphicon glyphicon-ok"></span></a></p>
-        <p>Already have a pack?  <a href="#">Log-in</a></p>
+        <p class="lead">Your Pack. Your Way. Just Lighter.</p>
+        <p><a class="btn btn-lg btn-success" href="#">Start Packing! <span class="glyphicon glyphicon-ok"></span></a></p>
+        <p>Already have a pack?  <a href="#/login">Log-in</a></p>
       </div>
 
       <div class="row marketing">
@@ -75,33 +83,33 @@
           <div>
             <table style="width:100%">
               <tr>
-                <th width="20%">Product</th>
-                <th width="20%">Manufacturer</th> 
-                <th width="20%">Model</th>
-                <th width="20%">Weight</th>
-                <th width="20%">Price</th>
+                <th>Product</th>
+                <th>Manufacturer</th> 
+                <th>Model</th>
+                <th>Weight</th>
+                <th>Price</th>
               </tr>
             </table>
             <div ng-repeat="products in products">
               <span ng-class-odd="'odd'" ng-class-even="'even'">
                 <table style="width:100%" ng-class-odd="'odd'" ng-class-even="'even'">
                   <tr>
-                    <td width="20%">{{ products.nickname }}</td>
-                    <td width="20%">{{ products.manufacturer }}</td> 
-                    <td width="20%">{{ products.name }}</td>
-                    <td width="20%">{{ products.weight }} - {{ products.units }}</td> 
-                    <td width="20%">{{ products.price | currency }}</td>
+                    <td>{{ products.nickname }}</td>
+                    <td>{{ products.manufacturer }}</td> 
+                    <td>{{ products.name }}</td>
+                    <td>{{ products.weight }} - {{ products.units }}</td> 
+                    <td>{{ products.price | currency }}</td>
                   </tr>
                 </table>
               </span>
             </div>
             <!-- <table style="width:100%">
               <tr>
-                <td width="20%"></td>
-                <td width="20%"></td> 
-                <td width="20%"></td>
-                <td width="20%">{{ totalWeight }}</td> 
-                <td width="20%">{{ totalPrice | currency }}</td>
+                <td></td>
+                <td></td> 
+                <td></td>
+                <td>{{ totalWeight }}</td> 
+                <td>{{ totalPrice | currency }}</td>
               </tr>
             </table> -->
           </div>
@@ -110,21 +118,41 @@
           
         </div>
       </div>
+    </script>
 
-      <div class="footer">
-        <p><span class="glyphicon glyphicon-heart"></span> Love the outdoors.  Do it a little lighter.</p>
+<!-- *** Login Template *** -->
+
+    <script type="text/ng-template" id="/login.html">  
+      <div class="jumbotron">
+        <h1>Get into your Pack!</h1>
+        
+        <form name="form" ng-submit="login()" role="form">
+          <div class="form-group">
+              <label for="username">Username</label>
+              <i class="fa fa-key"></i>
+              <input type="text" name="username" id="username" class="form-control" ng-model="username" required />
+              <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
+          </div>
+          <div class="form-group">
+              <label for="password">Password</label>
+              <i class="fa fa-lock"></i>
+              <input type="password" name="password" id="password" class="form-control" ng-model="password" required />
+              <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+          </div>
+          <div class="form-actions">
+              <button type="submit" ng-disabled="form.$invalid || dataLoading" class="btn btn-danger">Login</button>
+              <img ng-if="dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+          </div>
+        </form>
       </div>
-      </script>
-    </div>
+    </script>
     
-
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
-    
     <!-- build:js(.) scripts/plugins.js -->
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js"></script>
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/alert.js"></script>
