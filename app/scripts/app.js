@@ -13,6 +13,15 @@ app.factory('products', [function(){
   return o;
 }]);
 
+app.factory('users', [function() {
+	var o = {
+		users: [
+			{username: 'redbeard', email: 'willwood@gmail.com', password: 'athiker', confirmPassword: 'athiker'}
+		]
+	};
+	return o;
+}])
+
 app.config([
 	'$stateProvider',
 	'$urlRouterProvider',
@@ -28,6 +37,11 @@ app.config([
 	    	url: '/login',
 	    	templateUrl: '/login.html',
 	    	controller: 'LoginCtrl'
+	    })
+	    .state('register', {
+	    	url:'/register',
+	    	templateUrl: '/register.html',
+	    	controller: 'RegisterCtrl'
 	    });
 
 	  $urlRouterProvider.otherwise('home');
@@ -57,10 +71,38 @@ app.controller('MainCtrl', ['$scope', 'products', function($scope, products) {
 }]);
 
 app.controller('LoginCtrl', [
-'$scope',
-'posts',
-function($scope, posts){
+	'$scope',
+	function($scope){
+		$scope.login = function() {
 
-}]);
+		}
+	}
+]);
+
+app.controller('RegisterCtrl', [
+	'$scope',
+	'users',
+	function($scope, users){
+		$scope.users = users.users;
+		$scope.register = function() {
+			if(!$scope.users.username || 
+				$scope.users.username == '' || 
+				!$scope.users.email || 
+				$scope.users.email == '' ||
+				!$scope.users.password ||
+				$scope.users.password == '' ||
+				$scope.users.password != $scope.users.confirmPassword) return;
+			$scope.users.push({
+				username: $scope.users.username,
+				email: $scope.users.email,
+				password: $scope.users.password
+			});
+			$scope.users.email = '';
+			$scope.users.username = '';
+			$scope.users.password = '';
+			$scope.users.confirmPassword = '';
+		}
+	}
+]);
 
 })();
