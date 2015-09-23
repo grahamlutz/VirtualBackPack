@@ -27,7 +27,7 @@
     <script src="scripts/app.js"></script>
     
   </head>
-  <body ng-app="virtualPack" ng-controller="MainCtrl">
+  <body ng-app="virtualPack">
     <!--[if lt IE 10]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -40,7 +40,9 @@
         </ul>
         <h3 class="text-muted">VirtualPack</h3>
       </div>
-
+    
+    <ui-view></ui-view>
+    <script type="text/ng-template" id="/home.html">  
       <div class="jumbotron">
         <h1>Get Your Own Virtual Pack!</h1>
         <p class="lead">Always a pleasure scaffolding your apps.</p>
@@ -112,6 +114,7 @@
       <div class="footer">
         <p><span class="glyphicon glyphicon-heart"></span> Love the outdoors.  Do it a little lighter.</p>
       </div>
+      </script>
     </div>
     
 
