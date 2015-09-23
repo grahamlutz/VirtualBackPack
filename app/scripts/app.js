@@ -1,12 +1,19 @@
 var app = angular.module('virtualPack', []);
 
-app.controller('MainCtrl', ['$scope', function($scope) {
-	$scope.test = 'Scope test';
-	$scope.products = [
-		{manufacturer: 'Enlightened Equipment', name: 'Revelation', weight: 21.95, units: 'oz', nickname: 'Top Quilt', price: 295},
+app.factory('products', [function(){
+  var o = {
+    products: [
+    	{manufacturer: 'Enlightened Equipment', name: 'Revelation', weight: 21.95, units: 'oz', nickname: 'Top Quilt', price: 295},
 		{manufacturer: 'Enlightened Equipment', name: 'Revolt', weight: 21.95, units: 'oz', nickname: 'UQ', price: 255},
 		{manufacturer: 'Osprey', name: 'Exos 58', weight: 39, units: 'oz', nickname: 'Backpack', price: 199}
-	];
+    ]
+  };
+  return o;
+}]);
+
+app.controller('MainCtrl', ['$scope', 'products', function($scope, products) {
+	$scope.test = 'Scope test';
+	$scope.products = products.products;
 	$scope.addProduct = function() {
 		var p = $scope.products;
 		//if(!p.manufacturer || p.manufacturer === '') { return; }
