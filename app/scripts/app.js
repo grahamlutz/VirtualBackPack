@@ -1,4 +1,6 @@
-var app = angular.module('virtualPack', []);
+(function() {
+
+var app = angular.module('virtualPack', ['ui.router', 'ngRoute']);
 
 app.factory('products', [function(){
   var o = {
@@ -11,8 +13,22 @@ app.factory('products', [function(){
   return o;
 }]);
 
+app.config([
+	'$stateProvider',
+	'$urlRouterProvider',
+	function($stateProvider, $urlRouterProvider) {
+
+	  $stateProvider
+	    .state('home', {
+	      url: '/home',
+	      templateUrl: '/home.html',
+	      controller: 'MainCtrl'
+	    });
+
+	  $urlRouterProvider.otherwise('home');
+}]);
+
 app.controller('MainCtrl', ['$scope', 'products', function($scope, products) {
-	$scope.test = 'Scope test';
 	$scope.products = products.products;
 	$scope.addProduct = function() {
 		var p = $scope.products;
@@ -25,11 +41,14 @@ app.controller('MainCtrl', ['$scope', 'products', function($scope, products) {
 			nickname: $scope.products.nickname,
 			price: $scope.products.price
 		});
+		console.log($scope.products[0].manufacturer);
 		p.manufacturer = '';
 		p.name = '';
 		p.weight = '';
 		p.units = 'oz';
 		p.nickname = '';
 		p.price = '';
-	}
-}])
+	};
+}]);
+
+})();
