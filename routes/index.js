@@ -61,4 +61,21 @@ router.put('/posts/:post/downvote', function(req, res, next) {
   })
 });
 
+/* POST comment on single post */
+router.post('/posts/:post/comments', function(req, res, next) {
+  var comment = new Comment(req.body);
+  comment.post = req.post;
+
+  comment.save(function(err, comment){
+    if(err){ return next(err); }
+
+    req.post.comments.push(comment);
+    req.post.save(function(err, post) {
+      if(err){ return next(err); }
+
+      res.json(comment);
+    });
+  });
+});
+
 module.exports = router;
