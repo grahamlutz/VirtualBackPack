@@ -41,8 +41,12 @@ router.param('post', function(req, res, next, id) {
 });
 
 /* GET single post */
-router.get('/posts/:post', function(req, res) {
-  res.json(req.post);
+router.get('/posts/:post', function(req, res, next) {
+  req.post.populate('comments', function(err, post) {
+    if (err) { return next(err); }
+
+    res.json(post);
+  });
 });
 
 /* PUT upvote a post */
@@ -53,7 +57,7 @@ router.put('/posts/:post/upvote', function(req, res, next) {
   })
 });
 
-/* PUT upvote a post */
+/* PUT downvote a post */
 router.put('/posts/:post/downvote', function(req, res, next) {
   req.post.downvote(function(err, post) {
     if (err) return next(err);
@@ -76,6 +80,40 @@ router.post('/posts/:post/comments', function(req, res, next) {
       res.json(comment);
     });
   });
+});
+
+/* preload comment */
+router.param('comment', function(req, res, next, id) {
+  var query = Comment.findById(id);
+
+  query.exec(function(err, comment) {
+    if(err) return next(err);
+    if (!comment) return next(new Error('can\'t find comment'));
+
+    req.comment = comment;
+    return next();
+  })
+});
+
+/* GET single comment */
+router.get('/posts/:post/comments/:comment', function(req, res) {
+  res.json(req.comment);
+});
+
+/* PUT upvote comment on a post */
+router.put('/posts/:post/comments/:comment/upvote', function(req, res, next) {
+  req.comment.upvote(function(err, comment) {
+    if (err) return next(err);
+    res.json(comment);
+  })
+});
+
+/* PUT downvote a post */
+router.put('/posts/:post/comments/:comment/downvote', function(req, res, next) {
+  req.comment.downvote(function(err, commentt) {
+    if (err) return next(err);
+    res.json(comment);
+  })
 });
 
 module.exports = router;
