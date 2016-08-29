@@ -53,4 +53,12 @@ router.put('/posts/:post/upvote', function(req, res, next) {
   })
 });
 
+/* PUT upvote a post */
+router.put('/posts/:post/downvote', function(req, res, next) {
+  req.post.downvote(function(err, post) {
+    if (err) return next(err);
+    res.json(post);
+  })
+});
+
 module.exports = router;
