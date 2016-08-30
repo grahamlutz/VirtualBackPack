@@ -1,4 +1,6 @@
 var express = require('express');
+var morgan = require('morgan');
+var fs = require('fs');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -9,12 +11,19 @@ var mongoose = require('mongoose');
 // database connection
 require('./models/posts');
 require('./models/Comments');
+//mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/news');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+// logger
+// create a write stream (in append mode)
+var accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'})
+// setup the logger
+app.use(morgan('combined', {stream: accessLogStream}))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

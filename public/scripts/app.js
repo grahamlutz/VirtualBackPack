@@ -8,7 +8,13 @@ app.config([
       .state('home', {
         url:'/home',
         templateUrl: 'views/home.html',
-        controller: 'MainCtrl'
+        controller: 'MainCtrl',
+        resolve: {
+          postPromise: ['posts', function(posts){
+            console.log('postPromise');
+            return posts.getAll();
+          }]
+        }
       })
       .state('posts', {
         url: '/posts/{id}',

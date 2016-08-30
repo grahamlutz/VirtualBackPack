@@ -1,18 +1,38 @@
 var app = angular.module('myVirtualPack');
 
-app.factory('posts', [function postFactory() {
+app.factory('posts', ['$http', function ($http) {
   var postsObj = {
-    posts: [
-      {title:'post 1', upvotes: 5, comments: [
-          {author: 'Joe', body: 'Cool post!', upvotes: 0},
-          {author: 'Bob', body: 'Great idea but everything is wrong!', upvotes: 0}
-        ]},
-      {title:'post 2', upvotes: 2, comments: []},
-      {title:'post 3', upvotes: 15, comments: []},
-      {title:'post 4', upvotes: 4, comments: []},
-      {title:'post 5', upvotes: 9, comments: []}
-    ]
+    posts: []
   }
+
+  postsObj.getAll = function() {
+    console.log('posts.getAll()')
+    return $http.get('/posts').success(function(data){
+      angular.copy(data, postsObj.posts);
+      console.log('postsObj.posts: ',postsObj.posts);
+    });
+  };
+
+  postsObj.create = function(post) {
+    return $http.post('/posts', post).success(function(data){
+      postsObj.posts.push(data);
+    });
+  };
+
+  postsObj.upvote = function(post) {
+    return $http.put('/posts/' + post._id + '/upvote')
+      .success(function(data){
+        post.upvotes += 1;
+      });
+  };
+
+  postsObj.downvote = function(post) {
+    return $http.put('/posts/' + post._id + '/downvote')
+      .success(function(data){
+        post.upvotes -= 1;
+      });
+  };
+
   return postsObj;
 }])
 
