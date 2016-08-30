@@ -7,10 +7,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var passport = require('passport');
 
 // database connection
 require('./models/posts');
 require('./models/Comments');
+require('./models/Users');
 //mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/news');
 
@@ -18,6 +20,10 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+// login setup
+require('./config/passport');
+app.use(passport.initialize());
 
 // logger
 // create a write stream (in append mode)
