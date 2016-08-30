@@ -27,6 +27,7 @@
       </div>
     </div>
 
+    <!-- Posts Page -->
     <script type="text/ng-template" id="/posts.html">
       <div class="page-header">
         <h3>
@@ -51,6 +52,7 @@
       </div>
 
       <form ng-submit="addComment()"
+        ng-show="isLoggedIn()"
         style="margin-top:30px;">
         <h3>Add a new comment</h3>
 
@@ -62,10 +64,15 @@
         </div>
         <button type="submit" class="btn btn-primary">Post</button>
       </form>
+      <div ng-hide="isLoggedIn()">
+        <h3>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can comment.</h3>
+      </div>
     </script>
+
+    <!-- Registration Page -->
     <script type="text/ng-template" id="/register.html">
       <div class="page-header">
-        <h1>Flapper News</h1>
+        <h2>Register New User</h2>
       </div>
 
       <div ng-show="error" class="alert alert-danger row">
@@ -91,6 +98,8 @@
         <button type="submit" class="btn btn-primary">Register</button>
       </form>
     </script>
+
+    <!-- Login Page -->
     <script type="text/ng-template" id="/login.html">
       <div class="page-header">
         <h1>Flapper News</h1>
@@ -126,7 +135,10 @@
     <!-- Angular Controllers -->
     <script src="scripts/controllers/mainCtrl.js"></script>
     <script src="scripts/controllers/postsCtrl.js"></script>
+    <script src="scripts/controllers/authCtrl.js"></script>
+    <script src="scripts/controllers/navCtrl.js"></script>
     <!-- Angular Factories -->
     <script src="scripts/factories/posts-factory.js"></script>
+    <script src="scripts/factories/auth-factory.js"></script>
   </body>
 </html>
