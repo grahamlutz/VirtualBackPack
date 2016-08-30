@@ -33,6 +33,30 @@ app.factory('posts', ['$http', function ($http) {
       });
   };
 
+  postsObj.get = function(id) {
+    return $http.get('/posts/' + id).then(function(res){
+      return res.data;
+    });
+  };
+
+  postsObj.addComment = function(id, comment) {
+    return $http.post('/posts/' + id + '/comments', comment);
+  };
+
+  postsObj.upvoteComment = function(post, comment) {
+    return $http.put('/posts/' + post._id + '/comments/'+ comment._id + '/upvote')
+      .success(function(data){
+        comment.upvotes += 1;
+      });
+  };
+
+  postsObj.downvoteComment = function(post, comment) {
+    return $http.put('/posts/' + post._id + '/comments/'+ comment._id + '/downvote')
+      .success(function(data){
+        comment.upvotes -= 1;
+      });
+  };
+
   return postsObj;
 }])
 

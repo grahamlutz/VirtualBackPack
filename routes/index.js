@@ -110,7 +110,7 @@ router.put('/posts/:post/comments/:comment/upvote', function(req, res, next) {
 
 /* PUT downvote a comment on a post */
 router.put('/posts/:post/comments/:comment/downvote', function(req, res, next) {
-  req.comment.downvote(function(err, commentt) {
+  req.comment.downvote(function(err, comment) {
     if (err) return next(err);
     res.json(comment);
   })
