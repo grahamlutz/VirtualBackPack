@@ -1,10 +1,10 @@
 var app = angular.module( 'myVirtualPack');
 
-app.controller( 'MainCtrl', ['$scope', 'posts', mainCtrl]);
+app.controller( 'MainCtrl', ['$scope', 'posts', 'auth', mainCtrl]);
 
-function mainCtrl ($scope, posts) {
-  $scope.test = 'Hello, World!';
+function mainCtrl ($scope, posts, auth) {
   $scope.posts = posts.posts;
+  $scope.isLoggedIn = auth.isLoggedIn;
   $scope.addPost = function(){
     if(!$scope.title || $scope.title === '') { return; }
     posts.create({

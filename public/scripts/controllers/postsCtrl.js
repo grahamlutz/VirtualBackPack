@@ -6,6 +6,7 @@ app.controller('PostsCtrl', [
   'post',
   function($scope, posts, post) {
     $scope.post = post;
+    $scope.isLoggedIn = auth.isLoggedIn;
 
     $scope.addComment = function(){
       if($scope.body === '') { return; }
