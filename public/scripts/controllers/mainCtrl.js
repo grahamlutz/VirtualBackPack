@@ -18,6 +18,6 @@ function mainCtrl ($scope, posts, auth) {
     posts.upvote(post);
   };
   $scope.decrementUpvotes = function(post) {
-    posts.upvote(post);
+    posts.downvote(post);
   }
 }
