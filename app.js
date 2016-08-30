@@ -13,6 +13,7 @@ var passport = require('passport');
 require('./models/posts');
 require('./models/Comments');
 require('./models/Users');
+require('./models/Gear');
 //mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/news');
 
