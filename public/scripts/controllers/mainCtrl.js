@@ -1,11 +1,19 @@
 var app = angular.module( 'myVirtualPack');
 
-app.controller( 'MainCtrl', ['$scope', 'posts', 'auth', mainCtrl]);
+app.controller( 'MainCtrl', ['$scope', 'posts', 'gear', 'auth', mainCtrl]);
 
 function mainCtrl ($scope, posts, auth) {
   $scope.posts = posts.posts;
   $scope.isLoggedIn = auth.isLoggedIn;
-  $scope.addPost = function(){
+  
+  $scope.addGear = addGear;
+  $scope.addPost = addPost;
+  $scope.incrementUpvotes = incrementUpvotes;
+  $scope.decrementUpvotes = decrementUpvotes;
+
+  function addGear() {};
+
+  function addPost() {
     if(!$scope.title || $scope.title === '') { return; }
     posts.create({
       title: $scope.title,
@@ -14,10 +22,12 @@ function mainCtrl ($scope, posts, auth) {
     $scope.title = '';
     $scope.link = '';
   };
-  $scope.incrementUpvotes = function(post) {
+
+  function incrementUpvotes(post) {
     posts.upvote(post);
-  };
-  $scope.decrementUpvotes = function(post) {
+  }
+
+  function decrementUpvotes(post) {
     posts.downvote(post);
   }
 }
