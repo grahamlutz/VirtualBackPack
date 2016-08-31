@@ -1,6 +1,8 @@
 var app = angular.module('myVirtualPack');
 
-app.factory('posts', ['$http', 'auth', function ($http, auth) {
+app.factory('posts', ['$http', 'auth', postsFactory]);
+
+function postsFactory($http, auth) {
   var postsObj = {
     posts: []
   }
@@ -68,4 +70,4 @@ app.factory('posts', ['$http', 'auth', function ($http, auth) {
   };
 
   return postsObj;
-}])
+}

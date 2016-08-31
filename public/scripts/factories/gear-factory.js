@@ -7,10 +7,15 @@ function gearFactory($htto, auth) {
     items: []
   }
 
-  gear.getAll = function() {};
-  gear.create = function() {};
-  gear.delete = function() {};
-  gear.get = function() {};
+  gear.getAll = getAll;
+  gear.create = createGear;
+  gear.delete = deleteGear;
+  gear.get = get;
+
+  function getAll() {};
+  function createGear() {};
+  function deleteGear() {};
+  function get() {};
 
   return gear;
 }

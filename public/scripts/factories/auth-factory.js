@@ -1,27 +1,15 @@
 var app = angular.module('myVirtualPack');
 
-app.factory('auth', ['$http', '$window', function($http, $window){
+app.factory('auth', ['$http', '$window', authFactory])
+
+function authFactory($http, $window) {
     var auth = {};
 
-    auth.saveToken = function (token){
-      $window.localStorage['flapper-news-token'] = token;
-    };
+    auth.saveToken = saveToken;
 
-    auth.getToken = function (){
-      return $window.localStorage['flapper-news-token'];
-    }
+    auth.getToken = getToken;
 
-    auth.isLoggedIn = function(){
-      var token = auth.getToken();
-
-      if(token){
-        var payload = JSON.parse($window.atob(token.split('.')[1]));
-
-        return payload.exp > Date.now() / 1000;
-      } else {
-        return false;
-      }
-    };
+    auth.isLoggedIn = isLoggedIn;
 
     auth.currentUser = function(){
       if(auth.isLoggedIn()){
@@ -48,5 +36,23 @@ app.factory('auth', ['$http', '$window', function($http, $window){
       $window.localStorage.removeItem('flapper-news-token');
     };
 
+    function saveToken(token){
+      $window.localStorage['flapper-news-token'] = token;
+    };
+    function getToken(){
+      return $window.localStorage['flapper-news-token'];
+    }
+    function isLoggedIn(){
+      var token = auth.getToken();
+
+      if(token){
+        var payload = JSON.parse($window.atob(token.split('.')[1]));
+
+        return payload.exp > Date.now() / 1000;
+      } else {
+        return false;
+      }
+    };
+
     return auth;
-}])
+}
