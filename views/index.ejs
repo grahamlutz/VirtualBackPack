@@ -40,8 +40,8 @@
         <div class="col-lg-12">
 
           <h4><a>Add Gear</a></h4>
-          <form id="addGearForm" ng-submit="addProduct()">
-            <input type="text" ng-model="products.nickname" placeholder="product nickname">
+          <form id="addGearForm" ng-submit="addGear()">
+            <input type="text" ng-model="gear.nickname" placeholder="product nickname">
             <br />
             <input type="text" ng-model="products.manufacturer" placeholder="manufacturer">
             <input type="text" ng-model="products.name" placeholder="product name">
@@ -68,7 +68,7 @@
                 <th>Price</th>
               </tr>
             </table>
-            <div ng-repeat="products in products">
+            <div ng-repeat="products in gear">
               <span ng-class-odd="'odd'" ng-class-even="'even'">
                 <table style="width:100%" ng-class-odd="'odd'" ng-class-even="'even'">
                   <tr>
