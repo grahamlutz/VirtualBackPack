@@ -6,10 +6,8 @@ app.factory('posts', ['$http', 'auth', function ($http, auth) {
   }
 
   postsObj.getAll = function() {
-    console.log('posts.getAll()')
     return $http.get('/posts').success(function(data){
       angular.copy(data, postsObj.posts);
-      console.log('postsObj.posts: ',postsObj.posts);
     });
   };
 
@@ -71,10 +69,3 @@ app.factory('posts', ['$http', 'auth', function ($http, auth) {
 
   return postsObj;
 }])
-
-// var postFactory = function postFactory() {
-//   var postsObj = {
-//     posts: []
-//   }
-//   return postsObj;
-// }
