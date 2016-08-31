@@ -1,30 +1,31 @@
 var app = angular.module('myVirtualPack');
 
-app.controller('PostsCtrl', [
-  '$scope',
-  'posts',
-  'post',
-  'auth',
-  function($scope, posts, post, auth) {
-    $scope.post = post;
-    $scope.isLoggedIn = auth.isLoggedIn;
+app.controller('PostsCtrl', ['$scope','posts','post','auth',postController]);
 
-    $scope.addComment = function(){
-      if($scope.body === '') { return; }
-      posts.addComment(post._id, {
-        body: $scope.body,
-        author: 'user',
-      }).success(function(comment) {
-        $scope.post.comments.push(comment);
-      });
-      $scope.body = '';
-    };
+function postController($scope, posts, post) {
+  $scope.post = post;
+  $scope.isLoggedIn = auth.isLoggedIn;
 
-    $scope.incrementUpvotes = function(comment){
-      posts.upvoteComment(post, comment);
-    };
-    $scope.decrementUpvotes = function(comment) {
-      posts.downvoteComment(post, comment);
-    }
+  $scope.addComment = addComment;
+  $scope.incrementUpvotes = incrementUpvotes;
+  $scope.decrementUpvotes = decrementUpvotes;
+
+  function addComment() {
+    if($scope.body === '') { return; }
+    posts.addComment(post._id, {
+      body: $scope.body,
+      author: 'user',
+    }).success(function(comment) {
+      $scope.post.comments.push(comment);
+    });
+    $scope.body = '';
   }
-]);
+
+  function incrementUpvotes(comment) {
+    posts.upvoteComment(post, comment);
+  }
+
+  function decrementUpvotes(comment) {
+    posts.downvoteComment(post, comment);
+  }
+}
