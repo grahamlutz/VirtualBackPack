@@ -14,11 +14,11 @@ function authFactory ($http, $window) {
     auth.logOut = logOut;
 
     function saveToken(token){
-      $window.localStorage['flapper-news-token'] = token;
+      $window.localStorage['mvp-token'] = token;
     };
 
     function getToken(){
-      return $window.localStorage['flapper-news-token'];
+      return $window.localStorage['mvp-token'];
     }
 
     function isLoggedIn(){
@@ -55,7 +55,7 @@ function authFactory ($http, $window) {
     };
 
     function logOut(){
-      $window.localStorage.removeItem('flapper-news-token');
+      $window.localStorage.removeItem('mvp-token');
     };
 
     return auth;

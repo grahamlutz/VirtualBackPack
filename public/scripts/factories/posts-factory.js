@@ -7,13 +7,22 @@ function postsFactory($http, auth) {
     posts: []
   }
 
-  postsObj.getAll = function() {
+  postsObj.getAll = getAll;
+  postsObj.create = create;
+  postsObj.upvote = upvote;
+  postsObj.downvote = downvote;
+  postsObj.get = get;
+  postsObj.addComment = addComment;
+  postsObj.upvoteComment = upvoteComment;
+  postsObj.downvoteComment = downvoteComment;
+
+  function getAll() {
     return $http.get('/posts').success(function(data){
       angular.copy(data, postsObj.posts);
     });
   };
 
-  postsObj.create = function(post) {
+  function create(post) {
     return $http.post('/posts', post, {
       headers: {Authorization: 'Bearer '+auth.getToken()}
     }).success(function(data){
@@ -21,7 +30,7 @@ function postsFactory($http, auth) {
     });
   };
 
-  postsObj.upvote = function(post) {
+  function upvote(post) {
     return $http.put('/posts/' + post._id + '/upvote', null, {
       headers: {Authorization: 'Bearer '+auth.getToken()}
     })
@@ -30,7 +39,7 @@ function postsFactory($http, auth) {
       });
   };
 
-  postsObj.downvote = function(post) {
+  function downvote(post) {
     return $http.put('/posts/' + post._id + '/downvote', null, {
       headers: {Authorization: 'Bearer '+auth.getToken()}
     })
@@ -39,19 +48,19 @@ function postsFactory($http, auth) {
       });
   };
 
-  postsObj.get = function(id) {
+  function get(id) {
     return $http.get('/posts/' + id).then(function(res){
       return res.data;
     });
   };
 
-  postsObj.addComment = function(id, comment) {
+  function addComment(id, comment) {
     return $http.post('/posts/' + id + '/comments', comment, {
       headers: {Authorization: 'Bearer '+auth.getToken()}
     });
   };
 
-  postsObj.upvoteComment = function(post, comment) {
+  function upvoteComment(post, comment) {
     return $http.put('/posts/' + post._id + '/comments/'+ comment._id + '/upvote', null, {
       headers: {Authorization: 'Bearer '+auth.getToken()}
     })
@@ -60,7 +69,7 @@ function postsFactory($http, auth) {
       });
   };
 
-  postsObj.downvoteComment = function(post, comment) {
+  function downvoteComment(post, comment) {
     return $http.put('/posts/' + post._id + '/comments/'+ comment._id + '/downvote', null, {
       headers: {Authorization: 'Bearer '+auth.getToken()}
     })
