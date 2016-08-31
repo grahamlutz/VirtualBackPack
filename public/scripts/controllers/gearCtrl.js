@@ -1,8 +1,8 @@
 var app = angular.module('myVirtualPack');
 
-app.controller('GearCtrl', ['$scope', 'gear', gearController]);
+app.controller('GearCtrl', ['$scope', 'gear', 'auth', gearController]);
 
-function gearController($scope, gear) {
+function gearController($scope, gear, auth) {
   // $scope.products = products.products;
   // $scope.addProduct = function() {
   // 	var p = $scope.products;

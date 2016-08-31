@@ -1,5 +1,4 @@
 var express = require('express');
-var morgan = require('morgan');
 var fs = require('fs');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -30,7 +29,8 @@ app.use(passport.initialize());
 // create a write stream (in append mode)
 var accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'})
 // setup the logger
-app.use(morgan('combined', {stream: accessLogStream}))
+app.use(logger('combined', {stream: accessLogStream}))
+app.use(logger('dev'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -38,7 +38,6 @@ app.set('view engine', 'ejs');
 
 // TODO: add favicon
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
