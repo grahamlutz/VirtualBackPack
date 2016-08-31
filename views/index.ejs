@@ -41,17 +41,17 @@
 
           <h4><a>Add Gear</a></h4>
           <form id="addGearForm" ng-submit="addGear()">
-            <input type="text" ng-model="gear.nickname" placeholder="product nickname">
+            <input type="text" ng-model="nickname" placeholder="product nickname">
             <br />
-            <input type="text" ng-model="products.manufacturer" placeholder="manufacturer">
-            <input type="text" ng-model="products.name" placeholder="product name">
-            <input type="text" ng-model="products.weight" placeholder="weight">
-            <select ng-model="products.units">
+            <input type="text" ng-model="manufacturer" placeholder="manufacturer">
+            <input type="text" ng-model="name" placeholder="product name">
+            <input type="text" ng-model="weight" placeholder="weight">
+            <select ng-model="units">
               <option value="grams">Grams</option>
               <option value="oz">Oz.</option>
               <option value="lbs">Lbs.</option>
             </select>
-            <input type="text" ng-model="products.price" placeholder="price">
+            <input type="text" ng-model="price" placeholder="price">
             <br />
             <button type="submit">Add Gear</button>
           </form>
@@ -68,15 +68,15 @@
                 <th>Price</th>
               </tr>
             </table>
-            <div ng-repeat="products in gear">
+            <div ng-repeat="item in gear">
               <span ng-class-odd="'odd'" ng-class-even="'even'">
                 <table style="width:100%" ng-class-odd="'odd'" ng-class-even="'even'">
                   <tr>
-                    <td>{{ products.nickname }}</td>
-                    <td>{{ products.manufacturer }}</td>
-                    <td>{{ products.name }}</td>
-                    <td>{{ products.weight }} - {{ products.units }}</td>
-                    <td>{{ products.price | currency }}</td>
+                    <td>nickname  - {{ item.nickname }}</td>
+                    <td>{{ item.manufacturer }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.weight }} - {{ item.units }}</td>
+                    <td>{{ item.price | currency }}</td>
                   </tr>
                 </table>
               </span>

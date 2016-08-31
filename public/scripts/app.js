@@ -10,8 +10,8 @@ app.config([
         templateUrl: '/home.html',
         controller: 'MainCtrl',
         resolve: {
-          postPromise: ['posts', function(posts){
-            return posts.getAll();
+          postPromise: ['posts', 'gear', function(posts, gear){
+            return gear.getAll();
           }]
         }
       })

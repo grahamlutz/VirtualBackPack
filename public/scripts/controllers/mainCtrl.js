@@ -4,7 +4,7 @@ app.controller( 'MainCtrl', ['$scope', 'posts', 'gear', 'auth', mainCtrl]);
 
 function mainCtrl ($scope, posts, gear, auth) {
   $scope.posts = posts.posts;
-  $scope.gear = gear.items;
+  $scope.gear = gear.gear;
   $scope.isLoggedIn = auth.isLoggedIn;
 
   $scope.addGear = addGear;
@@ -14,23 +14,23 @@ function mainCtrl ($scope, posts, gear, auth) {
 
   function addGear() {
     console.log('addGear fired');
-    var g = $scope.gear;
-  	if(!g.manufacturer || g.manufacturer === '') { return; }
-  	$scope.gear.push({
-  		manufacturer: $scope.gear.manufacturer,
-  		name: g.name,
-  		weight: g.weight,
-  		units: g.units,
-  		nickname: $scope.gear.nickname,
-  		price: g.price
+    console.log('auth.currentUser(): ', auth.currentUser());
+  	if(!$scope.manufacturer || $scope.manufacturer === '') { console.log('no manufacturer'); return; }
+  	gear.create({
+  		manufacturer: $scope.manufacturer,
+  		name: $scope.name,
+  		weight: $scope.weight,
+  		units: $scope.units,
+  		nickname: $scope.nickname,
+  		price: $scope.price,
+      owner: auth.currentUser()
   	});
-  	console.log(g[0].manufacturer);
-  	g.manufacturer = '';
-  	g.name = '';
-  	g.weight = '';
-  	g.units = 'oz';
-  	g.nickname = '';
-  	g.price = '';
+  	$scope.manufacturer = '';
+  	$scope.name = '';
+  	$scope.weight = '';
+  	$scope.units = 'oz';
+  	$scope.nickname = '';
+  	$scope.price = '';
   };
 
   function addPost() {

@@ -2,7 +2,7 @@ var app = angular.module('myVirtualPack');
 
 app.factory('gear', ['$http', 'auth', gearFactory]);
 
-function gearFactory($htto, auth) {
+function gearFactory($http, auth) {
   var gear = {
     items: []
   }
@@ -12,8 +12,19 @@ function gearFactory($htto, auth) {
   gear.delete = deleteGear;
   gear.get = get;
 
-  function getAll() {};
-  function createGear() {};
+  function getAll() {
+    return $http.get('/gear').success(function(data){
+      console.log('gear.getAll() fired');
+      angular.copy(data, gear.items);
+    });
+  };
+  function createGear(item) {
+    return $http.post('/gear', item, {
+      headers: {Authorization: 'Bearer '+auth.getToken()}
+    }).success(function(data){
+      gear.items.push(data);
+    });
+  };
   function deleteGear() {};
   function get() {};
 

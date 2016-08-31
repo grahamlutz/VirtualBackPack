@@ -3,6 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Post = mongoose.model('Post');
 var Comment = mongoose.model('Comment');
+var Gear = mongoose.model('Gear');
 var passport = require('passport');
 var jwt = require('express-jwt');
 
@@ -13,6 +14,10 @@ var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
+
+/*
+ * Posts routes
+ */
 
 /* GET all posts */
 router.get('/posts', function(req, res, next) {
@@ -71,6 +76,10 @@ router.put('/posts/:post/downvote', auth, function(req, res, next) {
   })
 });
 
+/*
+ * Comment routes
+ */
+
 /* POST comment on single post */
 router.post('/posts/:post/comments', auth, function(req, res, next) {
   var comment = new Comment(req.body);
@@ -123,6 +132,10 @@ router.put('/posts/:post/comments/:comment/downvote', auth, function(req, res, n
   })
 });
 
+/*
+ * User routes
+ */
+
 /* POST Create User */
 router.post('/register', function(req, res, next) {
   if(!req.body.username || !req.body.password) {
@@ -156,5 +169,28 @@ router.post('/login', function(req, res, next){
     }
   })(req, res, next);
 });
+
+/*
+ *  Gear routes
+ */
+
+ /* GET all gear */
+ router.get('/gear', function(req, res, next) {
+   Gear.find(function(err, gear) {
+     if (err) return next(err);
+     res.json(gear);
+   })
+ });
+
+ /* POST add new gear */
+ router.post('/gear', auth, function(req, res, next) {
+   var gear = new Gear(req.body);
+   gear.owner = req.payload.username;
+
+   gear.save(function(err, gear) {
+     if (err) return next(err);
+     res.json(gear);
+   })
+ });
 
 module.exports = router;
