@@ -8,6 +8,7 @@ function mainCtrl ($scope, posts, gear, auth) {
   $scope.isLoggedIn = auth.isLoggedIn;
 
   $scope.addGear = addGear;
+  $scope.deleteGear = deleteGear;
   $scope.addPost = addPost;
   $scope.incrementUpvotes = incrementUpvotes;
   $scope.decrementUpvotes = decrementUpvotes;
@@ -30,6 +31,10 @@ function mainCtrl ($scope, posts, gear, auth) {
   	$scope.nickname = '';
   	$scope.price = '';
   };
+
+  function deleteGear(gearId) {
+
+  }
 
   function addPost() {
     if(!$scope.title || $scope.title === '') { return; }

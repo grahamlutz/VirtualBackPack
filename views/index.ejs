@@ -69,8 +69,7 @@
               </tr>
             </table>
             <div>
-              <span ng-class-odd="'odd'" ng-class-even="'even'">
-                <table style="width:90%" ng-class-odd="'odd'" ng-class-even="'even'">
+                <table class="table table-striped" style="width:100%">
                   <tr ng-repeat="item in gear">
                     <td>{{ item.nickname }}</td>
                     <td>{{ item.manufacturer }}</td>
@@ -79,7 +78,6 @@
                     <td>{{ item.price | currency }}</td>
                   </tr>
                 </table>
-              </span>
             </div>
             <!-- <table style="width:100%">
               <tr>

@@ -182,6 +182,15 @@ router.post('/login', function(req, res, next){
    })
  });
 
+ /* GET single gear item */
+ router.get('/gear/:item', function(req, res, next) {
+  //  req.item.populate('comments', function(err, post) {
+  //    if (err) { return next(err); }
+   //
+  //    res.json(post);
+  //  });
+ });
+
  /* POST add new gear */
  router.post('/gear', auth, function(req, res, next) {
    var gear = new Gear(req.body);
@@ -192,5 +201,23 @@ router.post('/login', function(req, res, next){
      res.json(gear);
    })
  });
+
+ /* preload gear item */
+ router.param('item', function(req, res, next, id) {
+   var query = Gear.findById(id);
+
+   query.exec(function(err, post) {
+     if(err) return next(err);
+     if (!post) return next(new Error('can\'t find post'));
+
+     req.item = item;
+     return next();
+   })
+ });
+
+ /* DELETE single gear item */
+router.delete('/gear/:item/delete', auth, function(req, res, next) {
+
+});
 
 module.exports = router;
