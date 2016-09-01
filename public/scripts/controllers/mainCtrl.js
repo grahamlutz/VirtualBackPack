@@ -4,7 +4,7 @@ app.controller( 'MainCtrl', ['$scope', 'posts', 'gear', 'auth', mainCtrl]);
 
 function mainCtrl ($scope, posts, gear, auth) {
   $scope.posts = posts.posts;
-  $scope.gear = gear.gear;
+  $scope.gear = gear.items;
   $scope.isLoggedIn = auth.isLoggedIn;
 
   $scope.addGear = addGear;
@@ -13,8 +13,6 @@ function mainCtrl ($scope, posts, gear, auth) {
   $scope.decrementUpvotes = decrementUpvotes;
 
   function addGear() {
-    console.log('addGear fired');
-    console.log('auth.currentUser(): ', auth.currentUser());
   	if(!$scope.manufacturer || $scope.manufacturer === '') { console.log('no manufacturer'); return; }
   	gear.create({
   		manufacturer: $scope.manufacturer,

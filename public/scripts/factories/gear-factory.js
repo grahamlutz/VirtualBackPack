@@ -14,7 +14,6 @@ function gearFactory($http, auth) {
 
   function getAll() {
     return $http.get('/gear').success(function(data){
-      console.log('gear.getAll() fired');
       angular.copy(data, gear.items);
     });
   };
