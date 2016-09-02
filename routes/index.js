@@ -182,13 +182,26 @@ router.post('/login', function(req, res, next){
    })
  });
 
+ /* preload gear item */
+ router.param('item', function(req, res, next, id) {
+   var query = Gear.findById(id);
+
+   query.exec(function(err, item) {
+     if(err) return next(err);
+     if (!item) return next(new Error('can\'t find item'));
+
+     req.item = item;
+     return next();
+   })
+ });
+
  /* GET single gear item */
  router.get('/gear/:item', function(req, res, next) {
-  //  req.item.populate('comments', function(err, post) {
-  //    if (err) { return next(err); }
-   //
-  //    res.json(post);
-  //  });
+   req.item.populate('item', function(err, item) {
+     if (err) { return next(err); }
+
+     res.json(item);
+   });
  });
 
  /* POST add new gear */
@@ -199,19 +212,6 @@ router.post('/login', function(req, res, next){
    gear.save(function(err, gear) {
      if (err) return next(err);
      res.json(gear);
-   })
- });
-
- /* preload gear item */
- router.param('item', function(req, res, next, id) {
-   var query = Gear.findById(id);
-
-   query.exec(function(err, post) {
-     if(err) return next(err);
-     if (!post) return next(new Error('can\'t find post'));
-
-     req.item = item;
-     return next();
    })
  });
 
