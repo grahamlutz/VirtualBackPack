@@ -16,9 +16,7 @@ require('./models/Gear');
 //mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/news');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-
+var router = require('./router');
 var app = express();
 
 // login setup
@@ -43,8 +41,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
+app.use('/', router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
