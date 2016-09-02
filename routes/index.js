@@ -216,8 +216,10 @@ router.post('/login', function(req, res, next){
  });
 
  /* DELETE single gear item */
-router.delete('/gear/:item/delete', auth, function(req, res, next) {
+router.delete('/gear/:item/delete', auth, function(req, res, next, id) {
+  var gearItem = Gear.findById(id);
 
+  gearItem.remove();
 });
 
 module.exports = router;
