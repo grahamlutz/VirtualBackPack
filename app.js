@@ -8,6 +8,8 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
 
+var app = express();
+
 // database connection
 require('./models/posts');
 require('./models/Comments');
@@ -15,9 +17,6 @@ require('./models/Users');
 require('./models/Gear');
 //mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/news');
-
-var router = require('./router');
-var app = express();
 
 // login setup
 require('./config/passport');
@@ -41,7 +40,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Routes
+var router = require('./router/index');
+var gear = require('./router/gear-routes');
+var users = require('./router/users');
+var posts = require('./router/post-routes');
+var comments = require('./router/comment-routes');
+
 app.use('/', router);
+app.use('/gear', gear);
+app.use('/user', users);
+app.use('/posts', posts);
+app.use('/posts/:post/comments', posts);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -49,7 +49,7 @@ function authFactory ($http, $window) {
     };
 
     function logIn(user){
-      return $http.post('/login', user).success(function(data){
+      return $http.post('/user/login', user).success(function(data){
         auth.saveToken(data.token);
       });
     };

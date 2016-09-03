@@ -2,13 +2,15 @@ var express = require('express');
 var router = express.Router();
 var jwt = require('express-jwt');
 var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
+var mongoose = require('mongoose');
+var Post = mongoose.model('Post');
 
 /*
  * Posts routes
  */
 
 /* GET all posts */
-router.get('/posts', function(req, res, next) {
+router.get('/', function(req, res, next) {
   Post.find(function(err, posts) {
     if (err) return next(err);
     res.json(posts);
@@ -16,7 +18,7 @@ router.get('/posts', function(req, res, next) {
 });
 
 /* POST add new post */
-router.post('/posts', auth, function(req, res, next) {
+router.post('/', auth, function(req, res, next) {
   var post = new Post(req.body);
   post.author = req.payload.username;
 
@@ -40,7 +42,7 @@ router.param('post', function(req, res, next, id) {
 });
 
 /* GET single post */
-router.get('/posts/:post', function(req, res, next) {
+router.get('/:post', function(req, res, next) {
   req.post.populate('comments', function(err, post) {
     if (err) { return next(err); }
 
@@ -49,7 +51,7 @@ router.get('/posts/:post', function(req, res, next) {
 });
 
 /* PUT upvote a post */
-router.put('/posts/:post/upvote', auth, function(req, res, next) {
+router.put('/:post/upvote', auth, function(req, res, next) {
   req.post.upvote(function(err, post) {
     if (err) return next(err);
     res.json(post);
@@ -57,7 +59,7 @@ router.put('/posts/:post/upvote', auth, function(req, res, next) {
 });
 
 /* PUT downvote a post */
-router.put('/posts/:post/downvote', auth, function(req, res, next) {
+router.put('/:post/downvote', auth, function(req, res, next) {
   req.post.downvote(function(err, post) {
     if (err) return next(err);
     res.json(post);
