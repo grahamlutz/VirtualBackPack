@@ -19,14 +19,14 @@ function gearFactory($http, auth) {
   };
   function createGear(item) {
     return $http.post('/gear', item, {
-      headers: {Authorization: 'Bearer '+auth.getToken()}
+      headers: {Authorization: 'Bearer '+ auth.getToken()}
     }).success(function(data){
       gear.items.push(data);
     });
   };
   function deleteGear(item) {
     return $http.delete('/gear/' + item + '/delete', {
-      headers: {Authorization: 'Bearer '+auth.getToken()}
+      headers: {Authorization: 'Bearer '+ auth.getToken()}
     }).success(function(data) {
       getAll();
     });
