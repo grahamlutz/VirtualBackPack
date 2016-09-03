@@ -7,10 +7,14 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
+require('./config/passport');
 
 var app = express();
 
-// database connection
+/*
+ *  Database connection
+ */
+
 require('./models/posts');
 require('./models/Comments');
 require('./models/Users');
@@ -18,8 +22,11 @@ require('./models/Gear');
 //mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/news');
 
+/*
+ *  Middleware
+ */
+
 // login setup
-require('./config/passport');
 app.use(passport.initialize());
 
 // logger
@@ -40,7 +47,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Routes
+/*
+ *  Routes
+ */
+
 var router = require('./router/index');
 var gear = require('./router/gear-routes');
 var users = require('./router/users');
@@ -60,7 +70,9 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-// error handlers
+/*
+ *  Error Handlers
+ */
 
 // development error handler
 // will print stacktrace
