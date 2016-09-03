@@ -7,7 +7,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
-require('./config/passport');
 
 var app = express();
 
@@ -28,6 +27,7 @@ mongoose.connect('mongodb://localhost/news');
 
 // login setup
 app.use(passport.initialize());
+require('./config/passport');
 
 // logger
 // create a write stream (in append mode)
@@ -53,7 +53,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 var router = require('./router/index');
 var gear = require('./router/gear-routes');
-var users = require('./router/users');
+var users = require('./router/user-routes');
 var posts = require('./router/post-routes');
 var comments = require('./router/comment-routes');
 
@@ -63,16 +63,16 @@ app.use('/user', users);
 app.use('/posts', posts);
 app.use('/posts/:post/comments', posts);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
 /*
  *  Error Handlers
  */
+
+ // catch 404 and forward to error handler
+ app.use(function(req, res, next) {
+   var err = new Error('Not Found');
+   err.status = 404;
+   next(err);
+ });
 
 // development error handler
 // will print stacktrace

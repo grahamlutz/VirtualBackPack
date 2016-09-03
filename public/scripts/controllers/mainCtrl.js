@@ -5,6 +5,7 @@ app.controller( 'MainCtrl', ['$scope', 'posts', 'gear', 'auth', mainCtrl]);
 function mainCtrl ($scope, posts, gear, auth) {
   $scope.posts = posts.posts;
   $scope.gear = gear.items;
+
   $scope.isLoggedIn = auth.isLoggedIn;
 
   $scope.addGear = addGear;
@@ -33,7 +34,7 @@ function mainCtrl ($scope, posts, gear, auth) {
   };
 
   function deleteGear(gearId) {
-
+    gear.delete(gearId);
   }
 
   function addPost() {

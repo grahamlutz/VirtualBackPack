@@ -66,6 +66,7 @@
                 <th>Model</th>
                 <th>Weight</th>
                 <th>Price</th>
+                <th>Edit/Delete</th>
               </tr>
             </table>
             <div>
@@ -76,6 +77,7 @@
                     <td>{{ item.name }}</td>
                     <td>{{ item.weight }} - {{ item.units }}</td>
                     <td>{{ item.price | currency }}</td>
+                    <td><a ng-click="deleteGear(item._id)">Delete Item</a></td>
                   </tr>
                 </table>
             </div>

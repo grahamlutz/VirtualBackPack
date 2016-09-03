@@ -24,7 +24,13 @@ function gearFactory($http, auth) {
       gear.items.push(data);
     });
   };
-  function deleteGear() {};
+  function deleteGear(item) {
+    return $http.delete('/gear/' + item + '/delete', {
+      headers: {Authorization: 'Bearer '+auth.getToken()}
+    }).success(function(data) {
+      getAll();
+    });
+  };
   function get() {};
 
   return gear;
