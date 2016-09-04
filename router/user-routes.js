@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var passport = require('passport');
 var jwt = require('express-jwt');
 var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
 
@@ -28,7 +29,7 @@ router.post('/user/register', function(req, res, next) {
 });
 
 /* POST login page */
-router.post('/user/login', function(req, res, next){
+router.post('/login', function(req, res, next){
   if(!req.body.username || !req.body.password){
     return res.status(400).json({message: 'Please fill out all fields'});
   }
