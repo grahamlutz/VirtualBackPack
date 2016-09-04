@@ -3,6 +3,8 @@ var router = express.Router();
 var passport = require('passport');
 var jwt = require('express-jwt');
 var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
+var mongoose = require('mongoose');
+var User = mongoose.model('User');
 
 /*
  * User routes
@@ -12,7 +14,7 @@ var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
  // /user/:id
 
 /* POST Create User */
-router.post('/user/register', function(req, res, next) {
+router.post('/register', function(req, res, next) {
   if(!req.body.username || !req.body.password) {
     return res.status(400).json({message: "Please fill out all fields"});
   }

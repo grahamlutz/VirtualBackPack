@@ -43,7 +43,7 @@ function authFactory ($http, $window) {
     };
 
     function register(user){
-      return $http.post('/register', user).success(function(data){
+      return $http.post('/user/register', user).success(function(data){
         auth.saveToken(data.token);
       });
     };
