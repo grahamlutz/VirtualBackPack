@@ -10,8 +10,35 @@ var User = mongoose.model('User');
  * User routes
  */
 
- /* User page */
- // /user/:id
+ /* GET all users /user */
+ router.get('/', function(req, res, next) {
+   User.find(function(err, users) {
+     if (err) return next(err);
+     res.json(users);
+   })
+ });
+
+ /* preload user */
+ router.param('userId', function(req, res, next, id) {
+   var query = User.findById(id);
+
+   query.exec(function(err, user) {
+     if(err) return next(err);
+     if (!user) return next(new Error('can\'t find item'));
+
+     req.user = user;
+     return next();
+   })
+ });
+
+ /* GET single user /user/:userId */
+ router.get('/:userId', function(req, res, next) {
+   req.user.populate('userId', function(err, userId) {
+     if (err) { return next(err); }
+
+     res.json(userId);
+   });
+ });
 
 /* POST Create User */
 router.post('/register', function(req, res, next) {
@@ -20,6 +47,9 @@ router.post('/register', function(req, res, next) {
   }
 
   var user = new User();
+  user.firstName = req.body.firstName;
+  user.lastName = req.body.lastName;
+  user.email = req.body.email;
   user.username = req.body.username;
   user.setPassword(req.body.password);
 
@@ -45,6 +75,16 @@ router.post('/login', function(req, res, next){
       return res.status(401).json(info);
     }
   })(req, res, next);
+});
+
+/* DELETE single user /user/:userId/delete */
+router.delete('/:userId/delete', auth, function(req, res, next) {
+ var query = User.findById(req.user, function(err, item) {
+   if (err) { return next(err) };
+   item.remove();
+ }).exec();
+
+ return res.json();
 });
 
 module.exports = router;
