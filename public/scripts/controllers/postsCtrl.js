@@ -2,7 +2,7 @@ var app = angular.module('myVirtualPack');
 
 app.controller('PostsCtrl', ['$scope','posts','post','auth',postController]);
 
-function postController($scope, posts, post) {
+function postController($scope, posts, post, auth) {
   $scope.post = post;
   $scope.isLoggedIn = auth.isLoggedIn;
 
