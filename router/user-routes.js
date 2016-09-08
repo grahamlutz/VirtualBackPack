@@ -24,7 +24,7 @@ var User = mongoose.model('User');
 
    query.exec(function(err, user) {
      if(err) return next(err);
-     if (!user) return next(new Error('can\'t find item'));
+     if (!user || user.length == 0) return next(new Error('can\'t find user'));
 
      req.user = user;
      return next();
