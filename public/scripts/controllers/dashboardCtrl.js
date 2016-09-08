@@ -4,6 +4,6 @@ app.controller('DashboardCtrl', ['$stateParams', '$scope', 'user', 'post', dashb
 
 function dashboardController($stateParams, $scope, user, post) {
   console.log('$stateParams: ', $stateParams);
-  //$scope.user = $stateParams.id;
+  //it $scope.user = $stateParams.id;
   //$scope.post = post;
 }

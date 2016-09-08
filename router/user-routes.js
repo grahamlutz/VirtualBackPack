@@ -19,8 +19,8 @@ var User = mongoose.model('User');
  });
 
  /* preload user */
- router.param('userId', function(req, res, next, id) {
-   var query = User.findById(id);
+ router.param('userId', function(req, res, next, userId) {
+   var query = User.find({username: userId});
 
    query.exec(function(err, user) {
      if(err) return next(err);
@@ -33,11 +33,7 @@ var User = mongoose.model('User');
 
  /* GET single user /user/:userId */
  router.get('/:userId', function(req, res, next) {
-   req.user.populate('userId', function(err, userId) {
-     if (err) { return next(err); }
-
-     res.json(userId);
-   });
+     res.json(req.user);
  });
 
 /* POST Create User */
