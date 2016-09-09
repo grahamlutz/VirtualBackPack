@@ -21,19 +21,17 @@ app.config([
         controller: 'PostsCtrl',
         resolve: {
           post: ['$stateParams', 'posts', function($stateParams, posts) {
-
             return posts.get($stateParams.id);
           }]
         }
       })
       .state('dashboard', {
-        url: '/user/{id}',
+        url: '/user/{username}',
         templateUrl: '/dashboard.html',
         controller: 'DashboardCtrl',
         resolve: {
           post: ['$stateParams', 'user', function($stateParams, user) {
-            console.log('user: ', user);
-            //return user.get($stateParams.id);
+            return user.get($stateParams.username);
           }]
         }
       })

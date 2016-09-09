@@ -33,8 +33,13 @@ var User = mongoose.model('User');
 
  /* GET single user /user/:userId */
  router.get('/:userId', function(req, res, next) {
-     res.json(req.user);
+     res.send(req.user);
  });
+
+ /* GET single user's gear /user/:userId/gear */
+ // router.get('/:userId/gear', function(req, res, next) {
+ //     res.send(req.user);
+ // });
 
 /* POST Create User */
 router.post('/register', function(req, res, next) {
