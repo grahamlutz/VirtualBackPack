@@ -14,12 +14,20 @@ var app = express();
  *  Database connection
  */
 
+
 require('./models/posts');
 require('./models/Comments');
 require('./models/Users');
 require('./models/Gear');
 //mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/news');
+var dbConfig = require('./config/db-connection')
+mongoose.connect(dbConfig.mongoURI[app.settings.env], function(err, res) {
+  if(err) {
+    console.log('Error connecting to the database. ' + err);
+  } else {
+    console.log('Connected to Database: ' + dbConfig.mongoURI[app.settings.env]);
+  }
+});
 
 /*
  *  Middleware
