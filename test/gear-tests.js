@@ -70,8 +70,6 @@ module.exports = function() {
           res.should.have.status(200);
           res.should.be.json;
           res.body.should.be.a('object');
-          //res.body.should.have.property('SUCCESS');
-          res.body.should.be.a('object');
           res.body.should.have.property('name');
           res.body.should.have.property('manufacturer');
           res.body.should.have.property('_id');
@@ -86,9 +84,14 @@ module.exports = function() {
     //   done();
     // });
 
-    // it('should delete a SINGLE gear item on /gear/<item>/delete DELETE', function(done) {
-    //   expect(true).to.equal(false);
-    //   done();
-    // });
+    it('should delete a SINGLE gear item on /gear/<item>/delete DELETE', function(done) {
+      chai.request(server)
+        .delete('/gear/57c75e85004598ce935dd48c/delete')
+        .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1N2NjOTQ0OWVkODhmYmU0YzY1MTdkNjMiLCJ1c2VybmFtZSI6ImFkbWluMiIsImV4cCI6MTQ3ODk4MTMxNywiaWF0IjoxNDczNzkzNzE3fQ.zy4n0W4d2isiQLkad5I97ea9McspwHEVQQPmWr6H3pM')
+        .end(function(err, res) {
+          res.should.have.status(200);
+          done();
+        });
+    });
   });
 }
