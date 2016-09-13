@@ -8,3 +8,6 @@
  - AngulaJS
  - Node.js
 
+### Testing:
+ - Mocha
+ - Chai
