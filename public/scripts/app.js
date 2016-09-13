@@ -36,7 +36,7 @@ app.config([
         }
       })
       .state('login', {
-        url: '/user/login',
+        url: '/login',
         templateUrl: '/login.html',
         controller: 'AuthCtrl',
         onEnter: ['$state', 'auth', function($state, auth){
