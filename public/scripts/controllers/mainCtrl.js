@@ -15,7 +15,6 @@ function mainCtrl ($scope, posts, gear, auth) {
   $scope.decrementUpvotes = decrementUpvotes;
 
   function addGear() {
-    console.log('addGear() fired!')
   	if(!$scope.manufacturer || $scope.manufacturer === '') { console.log('no manufacturer'); return; }
   	gear.create({
   		manufacturer: $scope.manufacturer,
