@@ -9,8 +9,6 @@ module.exports = function() {
   var chaiHttp = require('chai-http');
   var mongoose = require('mongoose');
   var server = require('../app');
-  var jwt = require('express-jwt');
-  var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
   var Gear = mongoose.model('Gear');
 
   chai.use(chaiHttp);
