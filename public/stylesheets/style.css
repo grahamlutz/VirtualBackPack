@@ -24,6 +24,10 @@ body {
     margin-bottom: 0px;
 }
 
+.table-striped>tbody>tr:nth-of-type(even) {
+  background-color:#f9f9f9
+}
+
 .column {
   padding: 0;
   margin-left: -1px;

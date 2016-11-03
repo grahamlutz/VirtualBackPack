@@ -10,6 +10,14 @@ body {
   padding-bottom: 20px;
 }
 
+.bg-image-container {
+  background: url(/images/rb_panorama.jpeg) no-repeat;
+  background-size: cover;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,
@@ -44,6 +52,7 @@ body {
 
 /* Main marketing message and sign up button */
 .jumbotron {
+  background-color: transparent;
   text-align: center;
   border-bottom: 1px solid #e5e5e5;
   .btn {
